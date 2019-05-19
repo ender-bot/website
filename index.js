@@ -44,6 +44,37 @@ app.get('/', wrapAsync(async function serveMe(req, res) {
     res.render("home.pug", render)
 }));
 
+app.get('/account', wrapAsync(async function serveMe(req, res) {
+    var cookie = req.cookies;
+    if(!cookie.auth) {
+        res.redirect("./?err=auth_needed")
+    }
+    const resp = await p({
+        url: 'https://discordapp.com/api/users/@me',
+        parse: 'json',
+        headers: {
+            "Authorization": `Bearer ${cookie.auth}`
+        }
+    });
+    const render = {
+        oauth: {
+            username: "User",
+            discriminator: "0000",
+            password: "@",
+            avatar: "https://cdn.discordapp.com/embed/avatars/0.png",
+            id: "0"
+        },
+        favicon: 'i/favicon.ico'
+    };
+    render.oauth.username = resp.body.username
+    render.oauth.discriminator = resp.body.discriminator
+    render.oauth.id = resp.body.id
+    if(resp.body.avatar) {
+        render.oauth.avatar = `https://cdn.discordapp.com/avatars/${resp.body.id}/${resp.body.avatar}.png?size=1024`
+    }
+    res.render("account.pug", render)
+}));
+
 
 app.get("/login", wrapAsync(async function yeet(req, res) {
     var code = req.query.code;
