@@ -1,0 +1,19 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "🧱 The website for Ender Bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ender-bot/website.git"
+  },
+  "author": "EnderDev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ender-bot/website/issues"
+  },
+  "homepage": "https://github.com/ender-bot/website#readme"
+}
